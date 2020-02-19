@@ -1,15 +1,15 @@
-import { Scene, Engine, FreeCamera, Vector3, Camera, Mesh, HemisphericLight } from 'babylonjs';
+import { Scene, Engine, FreeCamera, Vector3, Camera, Mesh, HemisphericLight, UniversalCamera, ArcRotateCamera } from 'babylonjs';
 
 let canvas = document.getElementById("render") as HTMLCanvasElement;
 let engine = new Engine(canvas, false, {preserveDrawingBuffer:true, stencil:true});
 
 const createScene = (e:Engine) =>
 {
-    let size = 32;
+    let size = 16;
     let scene = new Scene(e);
-    let cam = new FreeCamera('1', new Vector3(0, size, -size), scene);
+   /* let cam = new FreeCamera('1', new Vector3(0, size, -size), scene);
     cam.setTarget(new Vector3(0, 0, 0));
-    cam.attachControl(canvas);
+    cam.attachControl(canvas);*/
 
     let light = new HemisphericLight('1', new Vector3(0, 1, 0), scene);
 
@@ -28,15 +28,11 @@ const createScene = (e:Engine) =>
         }
     }
 
-   /* let grid = Mesh.MergeMeshes(meshes);
-    scene.addMesh(grid);*/
 
-    console.log(scene.meshes.length);
+    //cam.position.x = 1 + size  / 4;
 
-        
-
-
-    cam.position.x = 1 + size  / 4;
+    let cam = new ArcRotateCamera("cam1", -Math.PI/2, 0, size*2, new Vector3(0, 0, 0), scene);
+    cam.target.set(size/2*0.7, 0, size/2*0.7);
     return scene;
 }
 
