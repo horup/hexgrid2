@@ -1,0 +1,27 @@
+{
+  "name": "hexgrid2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel ./src/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/horup/hexgrid2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/horup/hexgrid2/issues"
+  },
+  "homepage": "https://github.com/horup/hexgrid2#readme",
+  "dependencies": {
+    "babylonjs": "^4.0.3",
+    "parcel-bundler": "^1.12.4"
+  },
+  "devDependencies": {
+    "typescript": "^3.7.5"
+  }
+}
