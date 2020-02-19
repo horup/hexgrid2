@@ -7,7 +7,7 @@ let engine = new Engine(canvas, false, {preserveDrawingBuffer:true, stencil:true
 
 const createScene = (e:Engine) =>
 {
-    let size = 10;
+    let size = 32;
     let scene = new Scene(e);
     let cam = new FreeCamera('1', new Vector3(0, size, -size), scene);
     cam.setTarget(new Vector3(0, 0, 0));
@@ -15,6 +15,7 @@ const createScene = (e:Engine) =>
 
     let light = new HemisphericLight('1', new Vector3(0, 1, 0), scene);
 
+    let meshes:Mesh[] = [];
     for (let z = 0; z < size; z++)
     {
         for (let x = 0; x < size; x++)
@@ -25,8 +26,17 @@ const createScene = (e:Engine) =>
             let s = Math.random() * 5;
             cylinder.scaling.y = s;
             cylinder.position.y = s / 2;
+            meshes.push(cylinder);
         }
     }
+
+   /* let grid = Mesh.MergeMeshes(meshes);
+    scene.addMesh(grid);*/
+
+    console.log(scene.meshes.length);
+
+        
+
 
     cam.position.x = 1 + size  / 4;
     return scene;
