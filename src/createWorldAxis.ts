@@ -1,7 +1,7 @@
 import * as BABYLON from 'babylonjs';
 
 
-export default (size:number, scene:BABYLON.Scene) => 
+export default (scene:BABYLON.Scene, size:number = 6) => 
 {
     var makeTextPlane = function(text, color, size) {
         var dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 50, scene, true);
