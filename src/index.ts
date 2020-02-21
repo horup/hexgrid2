@@ -8,7 +8,7 @@ let canvas = document.getElementById("render") as HTMLCanvasElement;
 let engine = new Engine(canvas, false, {preserveDrawingBuffer:true, stencil:true});
 let scene = new Scene(engine);
 
-const size = 16;
+const size = 32;
 createWorldAxis(scene); 
 createHexGrid(size, scene);
 createCamera(16, scene);

@@ -13,23 +13,18 @@ export default (size:number, scene:Scene)=>
             let cylinder = MeshBuilder.CreateCylinder("1", {height:1, tessellation:6}, scene);//Mesh.CreateCylinder('1', 1, 1, 1, 6, 1, scene);
             cylinder.convertToFlatShadedMesh();
             cylinder.rotation.x = Math.PI/2;
-            cylinder.scaling.y = 10;
-            let s = Math.random()*4 + 0.1;
+            let s = Math.random()*2 + 0.1;
             cylinder.scaling.y = s;
             cylinder.position.x = x - x / 4;
             cylinder.position.y = (x % 2 == 0 ? y : y + 0.5) * 0.8;
             cylinder.position.z = s / 2 + 0.5;
 
             const hexMaterial = new BABYLON.StandardMaterial('hexMaterial', scene);
-            if (s > 3)
+            if (s > 1.75)
             {
-                hexMaterial.diffuseColor = Color3.FromHexString("#DDDDDD");
+                hexMaterial.diffuseColor = Color3.FromHexString("#AAAAAA");
             }
-            else if (s > 2)
-            {
-                hexMaterial.diffuseColor = Color3.FromHexString("#CCCCCC");
-            }
-            else if (s > 1)
+            else if (s > 0.5)
             {
                 hexMaterial.diffuseColor = Color3.FromHexString("#4F820D");
             }
