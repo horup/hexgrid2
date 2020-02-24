@@ -3,11 +3,21 @@ import { Scene, Vector3, UniversalCamera, ActionManager, ExecuteCodeAction } fro
 /** Creates a camera which looks down from the Z axis */
 export default (hexgridSize:number, scene:Scene)=>
 {
-    let cam = new UniversalCamera("cam1", new Vector3(0,0,hexgridSize*2), scene);
+   /* let cam = new UniversalCamera("cam1", new Vector3(0,0, hexgridSize*2), scene);
     cam.setTarget(new Vector3(0,0,0));
     cam.rotation.z = Math.PI;
     cam.position.x = hexgridSize/2;
-    cam.position.y = hexgridSize/2;
+    cam.position.y = hexgridSize/2;*/
+
+    let cam = new UniversalCamera("cam1", new Vector3(0,0, 10), scene);
+    cam.setTarget(new Vector3(0,-3,0));
+    cam.rotation.z = Math.PI;
+    cam.position.z = hexgridSize*2;
+    cam.position.x = hexgridSize/2;
+    cam.position.y = hexgridSize*1.5;
+
+    
+    
 
     if (scene.actionManager == null)
         scene.actionManager = new ActionManager(scene);
@@ -24,7 +34,7 @@ export default (hexgridSize:number, scene:Scene)=>
     }));
     scene.registerBeforeRender(()=>
     {
-        let speed = 0.1;
+        let speed = 0.5;
         cam.position.x += (map["a"] || map ["a"]) ? -speed : 0;
         cam.position.x += (map["d"] || map ["d"]) ? speed : 0;
         cam.position.y += (map["w"] || map ["w"]) ? -speed : 0;
