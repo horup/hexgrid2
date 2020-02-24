@@ -30,7 +30,6 @@ createCamera(16, scene);
 
 engine.runRenderLoop(()=>
 {
-   
     scene.render();
 });
 

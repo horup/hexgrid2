@@ -1,4 +1,4 @@
-import { Scene, Mesh, HemisphericLight, Vector3, Axis, Space, MeshBuilder, Color3 } from "babylonjs";
+import { Scene, Mesh, HemisphericLight, Vector3, Axis, Space, MeshBuilder, Color3, TransformNode } from "babylonjs";
 import * as BABYLON from 'babylonjs';
 import { Grid, Hex } from "honeycomb-grid";
 // https://coopdigitalblog.files.wordpress.com/2018/01/sec_palette-634px.png?w=636
@@ -15,15 +15,21 @@ interface Hex3D
     };
 }
 
-/** Creates a hexgrid in 3D with the given grid */
+/** Updates (or creates) the hexgrid in 3D */
 export default (grid: Grid<Hex<Hex3D>>, scene:Scene)=>
 {
-    const light = new HemisphericLight('light1', new Vector3(1, 0, 1), scene);
+    const id = "hexgrid";
+    let node = scene.getNodeByID(id) as TransformNode; 
+    node ? node : node = new TransformNode(id);
+    
     let width = 0;
     let height = 0;
     for (let hex of grid)
     {
-        let cylinder = MeshBuilder.CreateCylinder("1", {height:1, tessellation:6}, scene);
+        let hexId = hex.x + "," + hex.y;
+        let cylender = scene.getMeshByID(hexId) as Mesh;
+        let cylinder = cylender ? cylender : MeshBuilder.CreateCylinder(hexId, {height:1, tessellation:6}, scene);
+        cylinder.setParent(node);
 
         cylinder.convertToFlatShadedMesh();
         cylinder.rotation.x = Math.PI/2;
@@ -51,9 +57,4 @@ export default (grid: Grid<Hex<Hex3D>>, scene:Scene)=>
         cylinder.material = hexMaterial;
     }
 
-    let ground = Mesh.CreateGround("ground", 1, 1, 1, scene);
-    ground.rotate(Axis.X, Math.PI / 2, Space.LOCAL);
-    ground.setPivotPoint(new Vector3(-0.5,0,0.5));
-    ground.scaling.z = 100;
-    ground.scaling.x = 100;
 }

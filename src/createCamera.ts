@@ -1,8 +1,9 @@
-import { Scene, Vector3, UniversalCamera, ActionManager, ExecuteCodeAction } from "babylonjs";
+import { Scene, Vector3, UniversalCamera, ActionManager, ExecuteCodeAction, HemisphericLight } from "babylonjs";
 
 /** Creates a camera which looks down from the Z axis */
 export default (hexgridSize:number, scene:Scene)=>
 {
+    const light = new HemisphericLight('light1', new Vector3(1, 0, 1), scene);
    /* let cam = new UniversalCamera("cam1", new Vector3(0,0, hexgridSize*2), scene);
     cam.setTarget(new Vector3(0,0,0));
     cam.rotation.z = Math.PI;
