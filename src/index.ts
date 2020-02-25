@@ -1,8 +1,16 @@
 import { Scene, Engine, FreeCamera, Vector3, Mesh, HemisphericLight, UniversalCamera, ArcRotateCamera, ActionManager, ExecuteCodeAction, Camera, SphereBuilder, Color3 } from 'babylonjs';
+import * as BABYLON from 'babylonjs';
+import * as BABYLONLoaders from "babylonjs-loaders";
+import 'babylonjs-loaders';
 import createWorldAxis from './createWorldAxis';
 import createCamera from './createCamera';
 import updateHexGrid from './updateHexGrid';
 import * as Honeycomb from 'honeycomb-grid';
+declare var require;
+const stl = 
+{
+    locust:require("../stl/locust.stl") as string;
+}
 
 let canvas = document.getElementById("render") as HTMLCanvasElement;
 let engine = new Engine(canvas, false, {preserveDrawingBuffer:true, stencil:true});
@@ -42,6 +50,23 @@ grid.forEach(hex=>
         hex.depth = 2;
         hex.color = rock;
     }
+});
+
+/*
+const loader = new BABYLONLoaders.STLFileLoader();
+let meshes:BABYLON.Mesh[] = [];
+console.log(stl.locust);
+let r = loader.importMesh(null, scene, stl.locust, "", meshes, null, null );
+console.log(r);*/
+//BABYLON.SceneLoader.Append("/", stl.locust, scene);
+//console.log(stl.locust.substr(1, stl.locust.length-1));
+/*BABYLON.SceneLoader.Append("/", stl.locust.substr(1, stl.locust.length-1), scene, function (scene) {
+    // do something with the scene
+});*/
+
+BABYLON.SceneLoader.Load("/", stl.locust.substr(1, stl.locust.length-1), engine, (s)=>
+{
+    s.render();
 });
 
 
