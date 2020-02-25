@@ -13,6 +13,7 @@ interface Hex3D
         xRadius:number;
         yRadius:number;
     };
+    color:Color3;
 }
 
 /** Updates (or creates) the hexgrid in 3D */
@@ -42,18 +43,7 @@ export default (grid: Grid<Hex<Hex3D>>, scene:Scene)=>
         cylinder.position.z = s / 2 + 0.5;
 
         const hexMaterial = new BABYLON.StandardMaterial('hexMaterial', scene);
-        if (s > 1.75)
-        {
-            hexMaterial.diffuseColor = Color3.FromHexString("#AAAAAA");
-        }
-        else if (s > 0.5)
-        {
-            hexMaterial.diffuseColor = Color3.FromHexString("#4F820D");
-        }
-        else
-        {
-            hexMaterial.diffuseColor = Color3.FromHexString("#72DCD8");
-        }
+        hexMaterial.diffuseColor = hex.color;
         cylinder.material = hexMaterial;
     }
 
