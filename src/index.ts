@@ -1,4 +1,4 @@
-import { Scene, Engine, FreeCamera, Vector3, Mesh, HemisphericLight, UniversalCamera, ArcRotateCamera, ActionManager, ExecuteCodeAction, Camera, SphereBuilder, Color3, LoadFileError } from 'babylonjs';
+import { Scene, Engine, FreeCamera, Vector3, Mesh, HemisphericLight, UniversalCamera, ArcRotateCamera, ActionManager, ExecuteCodeAction, Camera, SphereBuilder, Color3, LoadFileError, MultiPointerScaleBehavior, TransformNode } from 'babylonjs';
 import * as BABYLON from 'babylonjs';
 import * as BABYLONLoaders from "babylonjs-loaders";
 import 'babylonjs-loaders';
@@ -59,19 +59,23 @@ let meshes = [];
 let cam = new ArcRotateCamera("cam1", 0, 0, 100, new Vector3(0,0,0), scene);
 cam.attachControl(canvas);*/
 
+
+createWorldAxis(scene); 
+updateHexGrid(grid, scene);
+createCamera(16, scene);
+
+
+
 BABYLON.SceneLoader.Load("/", stl.locust.substr(1, stl.locust.length-1), engine, (s)=>
 {
     let mesh = s.meshes[0];
+    let node = scene.getNodeByID("hexgrid") as TransformNode; 
+    mesh.parent = node;
     mesh.position.x = 2;
     mesh.position.y = 2;
     mesh.rotation.x = Math.PI/2;
     scene.addMesh(mesh);
 });
-
-
-createWorldAxis(scene); 
-updateHexGrid(grid, scene);
-createCamera(16, scene);
 
 engine.runRenderLoop(()=>
 {

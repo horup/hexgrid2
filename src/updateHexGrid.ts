@@ -22,6 +22,7 @@ export default (grid: Grid<Hex<Hex3D>>, scene:Scene)=>
     const id = "hexgrid";
     let node = scene.getNodeByID(id) as TransformNode; 
     node ? node : node = new TransformNode(id);
+    //node.rotation.x = Math.PI/2;
     
     let width = 0;
     let height = 0;
