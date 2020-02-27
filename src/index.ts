@@ -4,12 +4,12 @@ import * as BABYLONLoaders from "babylonjs-loaders";
 import 'babylonjs-loaders';
 import createWorldAxis from './createWorldAxis';
 import createCamera from './createCamera';
-import updateHexGrid from './updateHexGrid';
+import getHexGrid from './getHexGrid';
 import * as Honeycomb from 'honeycomb-grid';
 declare var require;
 const stl = 
 {
-    locust:require("../stl/locust.stl") as string;
+    locust:require("../stl/locust.stl") as string
 }
 
 let canvas = document.getElementById("render") as HTMLCanvasElement;
@@ -61,8 +61,8 @@ cam.attachControl(canvas);*/
 
 
 createWorldAxis(scene); 
-updateHexGrid(grid, scene);
-createCamera(16, scene);
+getHexGrid(grid, scene);
+createCamera(16, scene, canvas);
 
 
 
