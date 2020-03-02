@@ -1,6 +1,6 @@
 import { Scene, Vector3, UniversalCamera, ActionManager, ExecuteCodeAction, HemisphericLight, DirectionalLight, PointLight, SpotLight, ArcRotateCamera, ArcFollowCamera } from "babylonjs";
-import getRoot from './getRoot';
-export default (radius:number, scene:Scene, canvas:HTMLCanvasElement)=>
+import {getRoot} from './getRoot';
+export const initCamera = (radius:number, scene:Scene, canvas:HTMLCanvasElement)=>
 {
     const light = new HemisphericLight('light1', new Vector3(1, 1, 1), scene);
     light.parent = getRoot(scene);

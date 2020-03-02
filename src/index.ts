@@ -2,10 +2,11 @@ import { Scene, Engine, FreeCamera, Vector3, Mesh, HemisphericLight, UniversalCa
 import * as BABYLON from 'babylonjs';
 import * as BABYLONLoaders from "babylonjs-loaders";
 import 'babylonjs-loaders';
-import createWorldAxis from './createWorldAxis';
-import createCamera from './createCamera';
-import getHexGrid from './getHexGrid';
 import * as Honeycomb from 'honeycomb-grid';
+
+import * as Hexe from './hexe';
+
+
 declare var require;
 const stl = 
 {
@@ -59,17 +60,19 @@ let meshes = [];
 let cam = new ArcRotateCamera("cam1", 0, 0, 100, new Vector3(0,0,0), scene);
 cam.attachControl(canvas);*/
 
-
+/*
 createWorldAxis(scene); 
 getHexGrid(grid, scene);
 createCamera(16, scene, canvas);
+*/
 
-
+Hexe.init(scene, canvas);
+//Hexe.syncGrid(grid, scene);
 
 BABYLON.SceneLoader.Load("/", stl.locust.substr(1, stl.locust.length-1), engine, (s)=>
 {
     let mesh = s.meshes[0];
-    let node = scene.getNodeByID("hexgrid") as TransformNode; 
+    let node = Hexe.getRoot(scene);
     mesh.parent = node;
     mesh.position.x = 2;
     mesh.position.y = 2;

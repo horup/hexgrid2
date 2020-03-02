@@ -1,7 +1,7 @@
 import { Scene, Mesh, HemisphericLight, Vector3, Axis, Space, MeshBuilder, Color3, TransformNode } from "babylonjs";
 import * as BABYLON from 'babylonjs';
 import { Grid, Hex } from "honeycomb-grid";
-import getRoot from './getRoot';
+import {getRoot} from './getRoot';
 // https://coopdigitalblog.files.wordpress.com/2018/01/sec_palette-634px.png?w=636
 /** Creates a hexgrid in 3D with the given grid */
 
@@ -18,7 +18,7 @@ interface Hex3D
 }
 
 /** Updates (or creates) the hexgrid in 3D */
-export default (grid: Grid<Hex<Hex3D>>, scene:Scene)=>
+export const syncGrid = (grid: Grid<Hex<Hex3D>>, scene:Scene)=>
 {
     const root = getRoot(scene);
     const id = "hexgrid";

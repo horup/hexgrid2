@@ -1,6 +1,6 @@
 import * as BABYLON from 'babylonjs';
 
-export default (scene:BABYLON.Scene)=>
+export const getRoot = (scene:BABYLON.Scene)=>
 {
     const id = "root";
     let node = scene.getNodeByID(id) as BABYLON.TransformNode;

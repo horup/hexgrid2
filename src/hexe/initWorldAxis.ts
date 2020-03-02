@@ -1,7 +1,7 @@
 import * as BABYLON from 'babylonjs';
-import getRoot from './getRoot';
+import {getRoot} from './getRoot';
 
-export default (scene:BABYLON.Scene, size:number = 6) => 
+export const initWorldAxis = (scene:BABYLON.Scene, size:number = 6) => 
 {
     const root = getRoot(scene);
     var makeTextPlane = function(text, color, size) {
