@@ -21,26 +21,19 @@ interface Hex3D
 export const syncGrid = (grid: Grid<Hex<Hex3D>>, scene:Scene)=>
 {
     const root = getRoot(scene);
-    const id = "hexgrid";
-    let plane = scene.getMeshByID("id");
-    const planeSize = 100;
+    const id = "grid";
+    let plane = scene.getMeshByID(id);
+    const planeSize = Math.pow(2, 16);
+    console.log(planeSize)
     plane ? plane : plane = BABYLON.MeshBuilder.CreatePlane(id, {height:planeSize, width:planeSize, sideOrientation:1});
     plane.parent = root;
-    //plane.rotation.y = Math.PI;
-    /*
-    const id = "hexgrid";
-    let node = scene.getNodeByID(id) as TransformNode; 
-    node ? node : node = new TransformNode(id);
-    //node.rotation.x = Math.PI/2;
-    
-    let width = 0;
-    let height = 0;
+
     for (let hex of grid)
     {
         let hexId = hex.x + "," + hex.y;
         let cylender = scene.getMeshByID(hexId) as Mesh;
         let cylinder = cylender ? cylender : MeshBuilder.CreateCylinder(hexId, {height:1, tessellation:6}, scene);
-        cylinder.setParent(node);
+        cylinder.setParent(plane);
 
         cylinder.convertToFlatShadedMesh();
         cylinder.rotation.x = Math.PI/2;
@@ -56,5 +49,4 @@ export const syncGrid = (grid: Grid<Hex<Hex3D>>, scene:Scene)=>
         hexMaterial.diffuseColor = hex.color;
         cylinder.material = hexMaterial;
     }
-*/
 }

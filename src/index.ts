@@ -67,7 +67,7 @@ createCamera(16, scene, canvas);
 */
 
 Hexe.init(scene, canvas);
-//Hexe.syncGrid(grid, scene);
+Hexe.syncGrid(grid, scene);
 
 BABYLON.SceneLoader.Load("/", stl.locust.substr(1, stl.locust.length-1), engine, (s)=>
 {
