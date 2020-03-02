@@ -56,15 +56,6 @@ grid.forEach(hex=>
 
 const loader = new BABYLONLoaders.STLFileLoader();
 let meshes = [];
-/*
-let cam = new ArcRotateCamera("cam1", 0, 0, 100, new Vector3(0,0,0), scene);
-cam.attachControl(canvas);*/
-
-/*
-createWorldAxis(scene); 
-getHexGrid(grid, scene);
-createCamera(16, scene, canvas);
-*/
 
 Hexe.init(scene, canvas);
 Hexe.syncGrid(grid, scene);

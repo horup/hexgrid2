@@ -27,23 +27,26 @@ export const syncGrid = (grid: Grid<Hex<Hex3D>>, scene:Scene)=>
     console.log(planeSize)
     plane ? plane : plane = BABYLON.MeshBuilder.CreatePlane(id, {height:planeSize, width:planeSize, sideOrientation:1});
     plane.parent = root;
+    plane.position.z = -0.1;
 
     for (let hex of grid)
     {
         let hexId = hex.x + "," + hex.y;
-        let cylender = scene.getMeshByID(hexId) as Mesh;
-        let cylinder = cylender ? cylender : MeshBuilder.CreateCylinder(hexId, {height:1, tessellation:6}, scene);
-        cylinder.setParent(plane);
-
+        let cylinder = scene.getMeshByID(hexId) as Mesh;
+        cylinder = cylinder ? cylinder : MeshBuilder.CreateCylinder(hexId, {height:1, tessellation:6}, scene);
+        cylinder.setParent(root);
         cylinder.convertToFlatShadedMesh();
-        cylinder.rotation.x = Math.PI/2;
+
         let s = hex.depth;
-        cylinder.scaling.y = s;
-        cylinder.scaling.x = hex.size.xRadius * 2;
-        cylinder.scaling.z = hex.size.xRadius * 2;
+
+        // local space
+        cylinder.scaling.y = s; // local
+        cylinder.rotation.x = Math.PI/2;
+
+        // relative to root
+        cylinder.position.z = s / 2;
         cylinder.position.x = hex.toPoint().x;
         cylinder.position.y = hex.toPoint().y;
-        cylinder.position.z = s / 2 + 0.5;
 
         const hexMaterial = new BABYLON.StandardMaterial('hexMaterial', scene);
         hexMaterial.diffuseColor = hex.color;

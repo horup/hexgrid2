@@ -6,7 +6,7 @@ export const initCamera = (radius:number, scene:Scene, canvas:HTMLCanvasElement)
     light.parent = getRoot(scene);
     const a = -Math.PI/2;
     const b = 0;
-    const cam = new ArcRotateCamera("cam1", a, b, radius*10, new Vector3(0,0,0), scene);
+    const cam = new ArcRotateCamera("cam1", a, b, radius*1, new Vector3(0,0,0), scene);
     cam.upVector = new Vector3(0,0,1);
     cam.attachControl(canvas);
     cam.parent = getRoot(scene);
