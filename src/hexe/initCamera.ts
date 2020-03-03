@@ -1,4 +1,4 @@
-import { Scene, Vector3, UniversalCamera, ActionManager, ExecuteCodeAction, HemisphericLight, DirectionalLight, PointLight, SpotLight, ArcRotateCamera, ArcFollowCamera } from "babylonjs";
+import { Scene, Vector3, UniversalCamera, ActionManager, ExecuteCodeAction, HemisphericLight, DirectionalLight, PointLight, SpotLight, ArcRotateCamera, ArcFollowCamera, Vector2 } from "babylonjs";
 import {getRoot} from './getRoot';
 export const initCamera = (radius:number, scene:Scene, canvas:HTMLCanvasElement)=>
 {
@@ -25,10 +25,42 @@ export const initCamera = (radius:number, scene:Scene, canvas:HTMLCanvasElement)
     scene.registerBeforeRender(()=>
     {
         let speed = 0.5;
-        cam.target.x += (map["a"] || map ["a"]) ? -speed : 0;
+        const xleft = (map["a"] || map ["a"]) ? -speed : 0;
+        const xright = (map["d"] || map ["d"]) ? speed : 0;
+        const forward = (map["w"] || map ["w"]) ? -speed : 0;
+        const backward = (map["s"] || map ["s"]) ? speed : 0;
+        //const d = cam.getDirection(new Vector3(0,-1,0));
+        const p1 = new Vector3(cam.target.x, cam.target.y, 0);
+        const p2 = new Vector3(cam.position.x, cam.position.y, 0);
+        const v = p2.subtract(p1).normalize();
+        
+        cam.target.x += v.x * speed * forward;
+        cam.target.y += v.y * speed * forward;
+        cam.target.x += v.x * speed * backward;
+        cam.target.y += v.y * speed * backward;
+
+        const beta = Math.PI/2.25;
+        if (cam.beta > beta)
+            cam.beta = beta;
+
+        console.log(cam.beta);
+
+        /*cam.target.x += (map["a"] || map ["a"]) ? -speed : 0;
         cam.target.x += (map["d"] || map ["d"]) ? speed : 0;
         cam.target.y += (map["w"] || map ["w"]) ? -speed : 0;
-        cam.target.y += (map["s"] || map ["s"]) ? speed : 0; 
+        cam.target.y += (map["s"] || map ["s"]) ? speed : 0; */
+
+
+       /* const d = cam.getDirection(new Vector3(0, 0, 1));
+        console.log(d);
+        const n = new Vector3(-d.y, d.x, 0);
+        console.log(d);
+        cam.target.x += d.x * speed * forward;
+        cam.target.y += d.y * speed * forward;*/
+        //cam.target.y += d.z * speed * forward;
+      
+      //  cam.target.y += n.y * speed;
+        //cam.target.y += d.y;
     });
    /* let cam = new UniversalCamera("cam1", new Vector3(0,0, 10), scene);
     cam.setTarget(new Vector3(0,-3,0));
