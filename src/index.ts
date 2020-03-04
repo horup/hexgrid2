@@ -1,4 +1,4 @@
-import { Scene, Engine, FreeCamera, Vector3, Mesh, HemisphericLight, UniversalCamera, ArcRotateCamera, ActionManager, ExecuteCodeAction, Camera, SphereBuilder, Color3, LoadFileError, MultiPointerScaleBehavior, TransformNode } from 'babylonjs';
+import { Scene, Engine, FreeCamera, Vector3, Mesh, HemisphericLight, UniversalCamera, ArcRotateCamera, ActionManager, ExecuteCodeAction, Camera, SphereBuilder, Color3, LoadFileError, MultiPointerScaleBehavior, TransformNode, Material } from 'babylonjs';
 import * as BABYLON from 'babylonjs';
 import * as BABYLONLoaders from "babylonjs-loaders";
 import 'babylonjs-loaders';
@@ -10,7 +10,8 @@ import * as Hexe from './hexe';
 declare var require;
 const stl = 
 {
-    locust:require("../stl/locust.stl") as string
+    locust:require("../stl/locust.stl") as string,
+    tank:require("../stl/hummel_early.stl") as string
 }
 
 let canvas = document.getElementById("render") as HTMLCanvasElement;
@@ -68,6 +69,22 @@ BABYLON.SceneLoader.Load("/", stl.locust.substr(1, stl.locust.length-1), engine,
     mesh.position.x = 2;
     mesh.position.y = 2;
     mesh.rotation.x = Math.PI/2;
+    mesh.position.z = 0.1;
+    //mesh.material = new Material("test", scene);
+    mesh.material = new BABYLON.StandardMaterial('test', scene);
+    scene.addMesh(mesh);
+});
+
+BABYLON.SceneLoader.Load("/", stl.tank.substr(1, stl.tank.length-1), engine, (s)=>
+{
+    let mesh = s.meshes[0];
+    let node = Hexe.getRoot(scene);
+    mesh.parent = node;
+    mesh.position.x = 9;
+    mesh.position.y = 9;
+    mesh.position.z = 0.1;
+    mesh.rotation.x = Math.PI/2;
+    mesh.material = new BABYLON.StandardMaterial('test', scene);
     scene.addMesh(mesh);
 });
 
