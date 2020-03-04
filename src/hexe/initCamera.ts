@@ -33,11 +33,17 @@ export const initCamera = (radius:number, scene:Scene, canvas:HTMLCanvasElement)
         const p1 = new Vector3(cam.target.x, cam.target.y, 0);
         const p2 = new Vector3(cam.position.x, cam.position.y, 0);
         const v = p2.subtract(p1).normalize();
+        const n = new Vector3(v.y, -v.x, 0);
         
         cam.target.x += v.x * speed * forward;
         cam.target.y += v.y * speed * forward;
         cam.target.x += v.x * speed * backward;
         cam.target.y += v.y * speed * backward;
+
+        cam.target.x += n.x * speed * xleft;
+        cam.target.y += n.y * speed * xleft;
+        cam.target.x += n.x * speed * xright;
+        cam.target.y += n.y * speed * xright;
 
         const beta = Math.PI/2.25;
         if (cam.beta > beta)
